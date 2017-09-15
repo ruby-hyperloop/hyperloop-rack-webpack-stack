@@ -1,0 +1,19 @@
+{
+  "name": "rack-tutorial",
+  "version": "1.0.0",
+  "description": "Rack, Opal and Hyperloop build env",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "ruby-hyperloop": "0.0.3"
+  },
+  "devDependencies": {
+    "webpack": "^3.5.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Barrie Hadfield",
+  "license": "MIT"
+}
