@@ -4,7 +4,7 @@ var path = require('path');
 var BUILD_DIR = path.resolve(__dirname, 'dist');
 
 var config = {
-  entry: ['./build/opal.js', './client.js', './build/application.js'],
+  entry: ['./client.js', './build/application.js'],
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
