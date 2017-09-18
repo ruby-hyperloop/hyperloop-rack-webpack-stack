@@ -1,7 +1,7 @@
 class HelloWorld < Hyperloop::Component
   render(DIV) do
     100.times do
-      SPAN { "Wello world! " }
+      SPAN { "Hello world " }
     end
   end
 end
