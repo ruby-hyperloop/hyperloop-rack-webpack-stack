@@ -86,23 +86,25 @@ localhost:5000
 
 #### Summary
 
-+ You `require` gems and JS libraries into your project
-+ Opal compiles the Ruby code in `app.js.rb` and generates `build/application.js`
++ You write your code and add Gems and JavaScript libraries to your project
++ Opal compiles the Ruby code found in `app.js.rb` and generates `build/application.js`
 + Webpack packages the NPM libraries required in `index.js` and builds `build/package.js`
-+ Our development version of `index.html` brings in both of these JS libraries and launches our application
++ Our development version of `index.html` loads both of these JS libraries and launches our application
 
 #### Details
 
-##### Installing Gems and JS libraries
+##### Installing Gems and JavaScript libraries
 
-**Ruby Gems:**
+Your Gemfile and package.json are synonymous:
+
+Ruby Gems:
 
 `Gemfile` - specify all the Gems you want installed
 `bundle install` - gets all the Gems you have specified in your Gemfile
 
 Gems are downloaded from Ruby Gems: https://rubygems.org/
 
-**JavaScript libraries:**
+JavaScript libraries:
 
 `package.json` - specify all the JS libraries you want installed
 `npm install` - gets all the JS libraries you have specified in your package.json
@@ -110,3 +112,7 @@ Gems are downloaded from Ruby Gems: https://rubygems.org/
 Node modles are downloaded from NPM https://www.npmjs.com/
 
 > To add a new NPM module, you can type `npm add LIB-NAME --save` or simply modify your package.json.
+
+The steps above simply download the source of the Gem or JS library to your computer. To include them in the build process you will need to also follow the steps below.
+
+##### Ruby code
