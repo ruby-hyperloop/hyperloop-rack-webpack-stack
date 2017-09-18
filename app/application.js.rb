@@ -1,6 +1,8 @@
 require_tree './components'
 require_tree './stores'
 
+require 'opal'
+
 require 'opal_hot_reloader'
 OpalHotReloader.listen(25222, false, 1)
 
