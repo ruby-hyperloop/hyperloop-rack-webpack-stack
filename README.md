@@ -2,10 +2,20 @@
 
 The goal of this tutorial is to outline the setup steps required to build a Rack + Opal Sprockets stack with all front-end JavaScript assets being brought in through NPM and packaged with Webpack.
 
+This stack is perfect for building a server-less application or a website.
+
 ## Motivation
 
-+ Fast, modern, development stack for building Opal based code (including Hyperloop)
-+ Minimal production application consisting of just three files (index.html, app.js and app.css)
++ **Build environment** Fast, modern, development stack for building Opal based code (including Hyperloop) with a re-build on every page refresh and hot reloading. JavaScript assets via NPM and Webpack.
++ **Production** Minimized production application consisting of just three files (index.html, app.js and app.css)
+
+The final application build (which includes all of Hyperloop, Opal JQuery and Opal Core Extentsions) is just 185kb gzipped.
+
+|  File              | Min     | Gzip     |
+| -------------------|----------|---------|
+|  app.min.js        | 692 kb   |185 kb   |
+
+
 
 ### Development environment
 
