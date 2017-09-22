@@ -11,6 +11,3 @@ require('ruby-hyperloop/hyperloop');
 // require('ruby-hyperloop/hyper-router');
 //
 // Sem = require('semantic-ui-react');
-// Marked = require('marked');
-// CodeMirror = require('react-codemirror');
-// require('codemirror/mode/ruby/ruby');
