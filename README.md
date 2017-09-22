@@ -2,7 +2,7 @@
 
 The goal of this tutorial is to outline the setup steps required to build a **Rack** + **Opal Sprockets** + **Hyperloop** hot-reloading stack with all front-end JavaScript assets installed with **NPM** and packaged with **Webpack**.
 
-This stack is perfect for building a singly-page, server-less application or a Website.
+This stack is perfect for building a single-page, server-less application or a Website.
 
 ## Motivation
 
@@ -59,7 +59,8 @@ Next we will use NPM to install our JavaScript libraries:
 npm install react react-dom ruby-hyperloop --save
 ```
 
-After a considerable amount of downloading, you will find you now have a `node_modules` folder which contains all the JS libraries that Webpack will use. This folder is Git ignored and downloaded when needed.
+After a considerable amount of downloading, you will find you now have a `node_modules` folder which contains all the JS libraries that Webpack will use. This folder is This folder is Git ignored.
+The packages you install are recorded in the package.json file.
 
 Finally we will install the Gems:
 
@@ -67,7 +68,7 @@ Finally we will install the Gems:
 $ bundle install
 ```
 
-All done. Everything should be installed and we are ready to standup the development environment.
+All done. Everything should be installed and we are ready to start up the development environment.
 
 ## Try it out
 
@@ -115,7 +116,7 @@ JavaScript:
 `package.json` - specify all the JS libraries you want installed
 `npm install` - gets all the JS libraries you have specified in your package.json
 
-Node modules (JavaScript libraries) are downloaded from https://www.npmjs.com/ and stored in your `node_modules` folder. This folder is `gitignor`ed and never included in your project. Webpack uses the contents of this folder to package the functions the application requires.
+Node modules (JavaScript libraries) are downloaded from https://www.npmjs.com/ and stored in your `node_modules` folder. This folder should be `gitignore`d and never included in your project. Webpack uses the contents of this folder to package the functions the application requires.
 
 To add a new NPM module, you can type `npm add LIB-NAME --save` or simply modify your package.json.
 
@@ -123,7 +124,7 @@ The steps above simply download the source of the Gem or JS library to your comp
 
 ##### Compiling Ruby code
 
-Any source that your `require` in `application.js.rb` will be compiled into JavaScript by Opal. If you `require` a component that `require`s other components they will be compiled as well. Keep an eye on the size of the output file `build/application.js` as it can become large if you are not careful. Ensure that you only `require` what you need.
+Any source that you `require` in `application.js.rb` will be compiled into JavaScript by Opal. If you `require` a component that `require`s other components they will be compiled as well. Keep an eye on the size of the output file `build/application.js` as it can become large if you are not careful. Ensure that you only `require` what you need.
 
 Notice how `app/application.js.rb` includes the contents of folders with `require_tree './folder_name'`. This allows you to structure your source code nicely as we have done with `components` and `stores`.
 
@@ -244,7 +245,7 @@ To build the production version run the Rake task:
 rake dist
 ```
 
-Thats's it. Three files - `index.html`, `app.min.js`, and `app.min.css` make up the whole application.
+That's it. Three files - `index.html`, `app.min.js`, and `app.min.css` make up the whole application.
 
 
 ### How it works
