@@ -11,6 +11,7 @@ A Ruby based development environment which is as good as Node.js and Webpack-dev
 + **Development environment** - a fast, modern, development stack for building Opal based code (including Hyperloop) with a re-build on every page refresh and hot reloading. JavaScript assets via NPM and Webpack.
 + **Production build** - a minimized production application consisting of just three small files.
 
+> Ruby-Hyperloop: This tutorial is designed for Hyperloop, but will work just as well for an Opal based framework or for a native Opal app. To remove Hyperloop just ignore the Hyperloop specific sections.
 
 ### Development environment
 
@@ -25,11 +26,11 @@ Rack + Opal Sprockets == Node.js + Webpack-dev-server
 
 ### Production build
 
-The production output consists of just three files which can be hosted on any webserver (or just run locally in a browser)
+The production output consists of just two files which can be hosted on any webserver (or just run locally in a browser)
 
 + `index.html` - minimal html rendering just one `div` where the application is loaded into
-+ `app.min.js` - all JavaScript libraries and application code
-+ `app.min.css` - all CSS taken from the JS libraries
++ `app.min.js` - all JavaScript libraries, the compiled application code and all CSS
+
 
 The final application build (which includes all of Hyperloop, Opal JQuery and Opal Core Extensions) is just **185kb** gzipped.
 
@@ -175,9 +176,19 @@ webpack
 
 Note that this step is preformed in our `build` rake task. (`sh 'webpack --progress'`).
 
-### Bringing it all together - index.html.erb
+### CSS
 
-In the previous two sections, we have seen how we build our Opal code how Webpack packages the NPM modules.
+CSS will come into your project from two sources: CSS you add in the `app/css` folder and CSS from JavaaScript libraries you add through Webpack.
+
+To add a new CSS file:
+
++ Create the file in `app/css`
++ Add it to `app/index.html.erb` (we only need it gere for development)
++ Require it in `client.js` - this will ensure that Webpack will package it properly for for your distribution build
+
+### index.html.erb
+
+In the previous sections, we have seen how we build our Opal code how Webpack packages the NPM modules. All of these files are brought together in `index.html.erb` which is only used for development. In production we have a different `index.html` as all the JavaScript libs are packaged.
 
 Take a look at `app/index.html.erb`. First we include the CDN versions of React, ReactDOM and JQuery:
 
@@ -231,7 +242,7 @@ Foreman reads `Procfile` and allows us to start both processes with:
 
 ## Production build
 
-The production process differs from the development environment in that we combine the Opal built and Webpack packaged JS libraries into one library.
+The production process differs from the development environment in that we combine the Opal built and Webpack packaged JS libraries and all CSS into one file `app.min.js`.
 
 Additionally we use Webpack to minimise and uglify the output JavaScript.
 
@@ -241,8 +252,9 @@ To build the production version run the Rake task:
 rake dist
 ```
 
-That's it. Three files - `index.html`, `app.min.js`, and `app.min.css` make up the whole application.
+That's it. Two files - `index.html`, `app.min.js` make up the whole application.
 
+The final application build (which includes all of Hyperloop, Opal JQuery and Opal Core Extensions) is just **185kb** gzipped.
 
 ### How it works
 
