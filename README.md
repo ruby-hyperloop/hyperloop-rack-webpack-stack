@@ -31,9 +31,7 @@ The production output consists of just two files which can be hosted on any webs
 + `index.html` - minimal html rendering just one `div` where the application is loaded into
 + `app.min.js` - all JavaScript libraries, the compiled application code and all CSS
 
-
 The final application build (which includes all of Hyperloop, Opal JQuery and Opal Core Extensions) is just **185kb** gzipped.
-
 
 ## Setup
 
@@ -42,7 +40,7 @@ Please ensure you have NPM installed https://www.npmjs.com/get-npm (if you are u
 Next we will install a global version of Webpack so we can access it from the command line:
 
 ```
-npm install webpack -g
+$ npm install webpack -g
 ```
 Check that both NPM and Webpack are installed:
 
@@ -57,16 +55,15 @@ $ webpack -v
 Next we will use NPM to install our JavaScript libraries:
 
 ```
-npm install react react-dom ruby-hyperloop --save
+$ npm install react react-dom ruby-hyperloop --save
 ```
 
-After a considerable amount of downloading, you will find you now have a `node_modules` folder which contains all the JS libraries that Webpack will use. This folder is This folder is Git ignored.
-The packages you install are recorded in the package.json file.
+After a considerable amount of downloading, you will find you now have a `node_modules` folder which contains all the JS libraries that Webpack will use. This folder is Git ignored. The packages you install are recorded in the package.json file.
 
 Finally we will install the Gems:
 
 ```
-bundle install
+$ bundle install
 ```
 
 All done. Everything should be installed and we are ready to start up the development environment.
@@ -173,7 +170,7 @@ Any library you add through NPM must be required in this way. Keep an eye on the
 To package our JavaScript libraries we run `webpack` which will read its configuration from `webpack.config.js` by default.
 
 ```
-webpack
+$ webpack
 ```
 
 Note that this step is preformed in our `build` rake task. (`sh 'webpack --progress'`).
@@ -226,7 +223,7 @@ OpalHotReloader has a server component which watches for changes and re-compiles
 
 The client code comes in through `reload.js` and the server process is started by Foreman.
 
-### Rack as the webserver
+### Rack
 
 We are using Rack as the webserver which is configured in `config.ru`:
 
@@ -249,7 +246,9 @@ hotloader: bundle exec opal-hot-reloader -p 25222 -d app
 
 Foreman reads `Procfile` and allows us to start both processes with:
 
-`foreman start`
+```
+$ foreman start
+```
 
 ## Production build
 
@@ -260,12 +259,10 @@ Additionally we use Webpack to minimise and uglify the output JavaScript.
 To build the production version run the Rake task:
 
 ```
-rake dist
+$ rake dist
 ```
 
-That's it. Two files - `index.html`, `app.min.js` make up the whole application.
-
-The final application build (which includes all of Hyperloop, Opal JQuery and Opal Core Extensions) is just **185kb** gzipped.
+That's it. Two files - `index.html`, `app.min.js` make up the whole application which includes all of Hyperloop, Opal JQuery and Opal Core Extensions and is just **185kb** gzipped.
 
 ### How it works
 
@@ -276,7 +273,7 @@ The `dist` rake task simply runs Webpack with different options:
 webpack --config=dist.config.js --progress -p
 ```
 
-The `-p` flag instructs Webpack we are buidling the prodcution version so it will automatically optomize our output. The `--config` flag specifies the config file to use.
+The `-p` flag instructs Webpack we are building the production version so it will automatically optomize our output. The `--config` flag specifies the config file to use.
 
 The key difference with this config over the development config is that we have two input files. These two files will be combined into one output.
 
