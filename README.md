@@ -66,7 +66,7 @@ The packages you install are recorded in the package.json file.
 Finally we will install the Gems:
 
 ```
-$ bundle install
+bundle install
 ```
 
 All done. Everything should be installed and we are ready to start up the development environment.
