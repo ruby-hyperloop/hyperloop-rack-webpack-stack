@@ -11,7 +11,7 @@ A Ruby based development environment which is as good as Node.js and Webpack-dev
 + **Development environment** - a fast, modern, development stack for building Opal based code (including Hyperloop) with a re-build on every page refresh and hot reloading. JavaScript assets via NPM and Webpack.
 + **Production build** - a minimized production application consisting of just two files.
 
-> This tutorial is designed for Ruby-Hyperloop, but will work just as well for an Opal based framework or for a native Opal app. To remove Hyperloop just ignore the Hyperloop specific sections.
+> This tutorial is designed for Ruby-Hyperloop, but will work just as well for any Opal based framework or for a native Opal app. To remove Hyperloop just ignore the Hyperloop specific sections.
 
 ### Development environment
 
