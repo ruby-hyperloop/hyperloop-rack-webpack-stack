@@ -1,4 +1,4 @@
-# Hyperloop, Rack, Opal Sprockets, NPM and Webpack stack tutorial
+# Hyperloop, Rack, Opal Sprockets, NPM and Webpack stack
 
 The goal of this tutorial is to outline the setup steps required to build a **Rack** + **Opal Sprockets** + **Hyperloop** hot-reloading stack with all front-end JavaScript assets installed with **NPM** and packaged with **Webpack**.
 
