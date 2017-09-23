@@ -101,19 +101,16 @@ This next section details all the important aspects of the development environme
 
 ### Installing Gems and JavaScript libraries
 
-Gems are specified in the `Gemfile` and JavaScript libraries in `package.json`. The concepts are synonymous.
+Gems are specified in the `Gemfile` and JavaScript libraries in `package.json`.
 
-Ruby:
+The concepts are synonymous:
 
-`Gemfile` - specify all the Gems you want installed
-`bundle install` - gets all the Gems you have specified in your Gemfile
++ `Gemfile` - specifies all the Gems you want installed and `bundle install` gets all the Gems you have specified in your Gemfile
++ `package.json` - specifies all the JS libraries you want installed and `npm install` gets all the JS libraries you have specified in your package.json
 
-JavaScript:
+Node modules (JavaScript libraries) are downloaded from https://www.npmjs.com/ and stored in your `node_modules` folder.
 
-`package.json` - specify all the JS libraries you want installed
-`npm install` - gets all the JS libraries you have specified in your package.json
-
-Node modules (JavaScript libraries) are downloaded from https://www.npmjs.com/ and stored in your `node_modules` folder. This folder should be `gitignore`d and never included in your project. Webpack uses the contents of this folder to package the functions the application requires.
+This folder should be `gitignore`d and never included in your project. Webpack uses the contents of this folder to package the functions the application requires.
 
 To add a new NPM module, you can type `npm add LIB-NAME --save` or simply modify your package.json.
 
@@ -126,6 +123,7 @@ Any source that you `require` in `application.js.rb` will be compiled into JavaS
 Notice how `app/application.js.rb` includes the contents of folders with `require_tree './folder_name'`. This allows you to structure your source code nicely as we have done with `components` and `stores`.
 
 ```ruby
+# app/application.js.rb
 require_tree './components'
 require_tree './stores'
 ```
@@ -133,6 +131,7 @@ require_tree './stores'
 As we are building a Hyperloop single-page application, we only want this library to render our top-level Component into the div with ID `#site` (found in `index.html`) when the page is fully loaded.
 
 ```ruby
+# app/application.js.rb
 Document.ready? do
   Element['#site'].render{ HelloWorld() }
 end
@@ -141,6 +140,7 @@ end
 See the `build` task in the `Rakefile`. You will notice that we are compiling `application.js` and `reload.js` separately so we can include just the code we need in the final build. You can use this pattern to compile any Opal code into a JavaScript output file.
 
 ```ruby
+# Rakefile
 File.open("build/application.js", "w+") do |out|
  out << Opal::Builder.build("application").to_s
 end
@@ -153,6 +153,7 @@ Once you have downloaded a JavaScript library via NPM you will need to tell Webp
 In `webpack.config.js` we specify that there is just one input file `client.js` and one output file `build/bundle.js`:
 
 ```javascript
+// webpack.config.js
 entry: ['./client.js'],
 output: {
   path: BUILD_DIR,
@@ -163,6 +164,7 @@ output: {
 In `client.js` we `require` the JavaScript libraries we want. For example, to include the Hyperloop code:
 
 ```javascript
+// client.js
 require('ruby-hyperloop/hyperloop');
 ```
 
@@ -186,6 +188,11 @@ To add a new CSS file:
 + Add it to `app/index.html.erb` (we only need it gere for development)
 + Require it in `client.js` - this will ensure that Webpack will package it properly for for your distribution build
 
+```javascript
+// client.js
+require('./app/css/application.css');
+```
+
 ### index.html.erb
 
 In the previous sections, we have seen how we build our Opal code how Webpack packages the NPM modules. All of these files are brought together in `index.html.erb` which is only used for development. In production we have a different `index.html` as all the JavaScript libs are packaged.
@@ -193,6 +200,7 @@ In the previous sections, we have seen how we build our Opal code how Webpack pa
 Take a look at `app/index.html.erb`. First we include the CDN versions of React, ReactDOM and JQuery:
 
 ```html
+<!-- app/index.html.erb -->
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
@@ -205,6 +213,7 @@ Then we instruct Opal Sprockets to build `opal.js`, `reload.js` and `application
 `build/bundle.js` is the output file Webpack packaged for us.
 
 ```html
+<!-- app/index.html.erb -->
 <%= javascript_include_tag 'opal.js'%>
 <script src="build/bundle.js"></script>
 <%= javascript_include_tag 'reload.js'%>
@@ -219,9 +228,10 @@ The client code comes in through `reload.js` and the server process is started b
 
 ### Rack as the webserver
 
-We are using Rack as the webserver which is configured in `config.rb`:
+We are using Rack as the webserver which is configured in `config.ru`:
 
 ```ruby
+# config.ru
 run Opal::Server.new { |server|
   server.main = 'application'
   server.append_path 'app'
@@ -231,7 +241,8 @@ run Opal::Server.new { |server|
 
 When we start Rack we also need to start the `opal-hot-reloader` process so we specify this in `Procfile`
 
-```
+```ruby
+# Procfile
 rackup: bundle exec rackup
 hotloader: bundle exec opal-hot-reloader -p 25222 -d app
 ```
@@ -260,7 +271,8 @@ The final application build (which includes all of Hyperloop, Opal JQuery and Op
 
 The `dist` rake task simply runs Webpack with different options:
 
-```
+```ruby
+# Rakefile
 webpack --config=dist.config.js --progress -p
 ```
 
@@ -269,12 +281,14 @@ The `-p` flag instructs Webpack we are buidling the prodcution version so it wil
 The key difference with this config over the development config is that we have two input files. These two files will be combined into one output.
 
 ```javascript
+// dist.config.js
 entry: ['./client.js', './build/application.js'],
 ```
 
 And of course we specify a different output file and folder:
 
 ```javascript
+// dist.config.js
 var BUILD_DIR = path.resolve(__dirname, 'dist');
 
 output: {
