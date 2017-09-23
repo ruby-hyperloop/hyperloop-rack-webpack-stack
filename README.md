@@ -92,17 +92,13 @@ To test the hot-reloading, make a change to the sample component in `app/compone
 
 This next section details all the important aspects of the development environment.
 
-### How it works
-
-**Summary**
+**Summary of how it works:**
 
 + Webpack packages the NPM modules required in `client.js` and builds `build/bundle.js`
 + When a page is requested from Rack, Opal Sprockets compiles the missing JavaScript files (`application.js`, `opal.js` and `reload.js`)
 + OpalHotReloader watches for changes to the Ruby code and CSS in the `app` folder and recompiles when needed
 
-**Details**
-
-#### Installing Gems and JavaScript libraries
+### Installing Gems and JavaScript libraries
 
 Gems are specified in the `Gemfile` and JavaScript libraries in `package.json`. The concepts are synonymous.
 
@@ -122,7 +118,7 @@ To add a new NPM module, you can type `npm add LIB-NAME --save` or simply modify
 
 The steps above simply download the source of the Gem or JS library to your computer. To include them in the build process you will need to also follow the steps below.
 
-#### Compiling Ruby code
+### Compiling Ruby code
 
 Any source that you `require` in `application.js.rb` will be compiled into JavaScript by Opal. If you `require` a component that `require`s other components they will be compiled as well. Keep an eye on the size of the output file `build/application.js` as it can become large if you are not careful. Ensure that you only `require` what you need.
 
@@ -149,7 +145,7 @@ File.open("build/application.js", "w+") do |out|
 end
 ```
 
-#### Requiring JavaScript libraries
+### Requiring JavaScript libraries
 
 Once you have downloaded a JavaScript library via NPM you will need to tell Webpack that you `require` it in your output package. This step is necessary to include the library in your project.
 
@@ -179,7 +175,7 @@ webpack
 
 Note that this step is preformed in our `build` rake task. (`sh 'webpack --progress'`).
 
-#### Bringing it all together - index.html.erb
+### Bringing it all together - index.html.erb
 
 In the previous two sections, we have seen how we build our Opal code how Webpack packages the NPM modules.
 
@@ -204,13 +200,13 @@ Then we instruct Opal Sprockets to build `opal.js`, `reload.js` and `application
 <%= javascript_include_tag 'application.js'%>
 ```
 
-#### OpalHotReloader
+### OpalHotReloader
 
 OpalHotReloader has a server component which watches for changes and re-compiles code and a client component which dynamically reloads the JavaScript.
 
 The client code comes in through `reload.js` and the server process is started by Foreman.
 
-#### Rack as the webserver
+### Rack as the webserver
 
 We are using Rack as the webserver which is configured in `config.rb`:
 
