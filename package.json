@@ -4,9 +4,9 @@
   "description": "Rack, Opal and Hyperloop build env",
   "main": "index.js",
   "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "ruby-hyperloop": "^0.0.3"
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "ruby-hyperloop": "0.0.3"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",
