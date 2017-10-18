@@ -1,5 +1,3 @@
-require 'opal-sprockets'
-
 require 'bundler'
 Bundler.require
 
