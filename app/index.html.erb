@@ -8,15 +8,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
 
-    <!-- We need this combination to get Sprockets HotLoading working -->
-    <!-- The distribution version packages bundle.js and application.js and Opal through the CDN -->
+    <!-- For Sprockets HotLoading working, in production, we use Opal through the CDN  -->
     <%= javascript_include_tag 'opal.js'%>
-    <script src="build/bundle.js"></script>
+
+    <!-- For Sprockets HotLoading working in development -->
     <%= javascript_include_tag 'reload.js'%>
+
+    <script src="build/bundle.js"></script>
+    <!-- For Sprockets HotLoading working, in production, we use Opal through the CDN  -->
+    <!-- The distribution version will bundled bundle.js and application.js into app.min.js -->
     <%= javascript_include_tag 'application.js'%>
 
-    <!-- Note that in the production build the CSS is assed to the JS file by Webpack -->
-    <!-- You need to require any CSS in client.js -->
+    <!-- Note that any CSS in client.js will assed to the JS file by Webpack in production -->
+    <!-- Following is only need when in development. -->
     <link rel="stylesheet" type="text/css" href="/app/css/application.css">
   </head>
   <body>
