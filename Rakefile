@@ -16,3 +16,5 @@ task :dist do
   puts '--> Running webpack to build distribution app.min.js'
   sh 'webpack --config=dist.config.js --progress -p'
 end
+
+task :default => :build
