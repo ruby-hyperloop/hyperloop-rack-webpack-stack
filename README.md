@@ -52,10 +52,17 @@ $ webpack -v
 3.5.6
 ```
 
+Add webpack installed location into `$NODE_PATH`, if you are using OSX or linux, just add global
+node_modules directory into $NODE_PATH in your's $HOME/.bashrc, following is a example:
+
+```sh
+echo 'export NODE_PATH=$NODE_PATH:/home/zw963/utils/node/lib/node_modules' >> ~/.bashrc
+```
+
 Next we will use NPM to install our JavaScript libraries:
 
 ```
-$ npm install react react-dom ruby-hyperloop --save
+$ npm install ruby-hyperloop --save
 ```
 
 After a considerable amount of downloading, you will find you now have a `node_modules` folder which contains all the JS libraries that Webpack will use. This folder is Git ignored. The packages you install are recorded in the package.json file.
