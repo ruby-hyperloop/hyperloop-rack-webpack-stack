@@ -1,4 +1,5 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     concurrent-ruby (1.0.5)
     ffi (1.9.18)

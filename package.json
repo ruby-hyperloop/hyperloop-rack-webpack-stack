@@ -4,14 +4,11 @@
   "description": "Rack, Opal and Hyperloop build env",
   "main": "index.js",
   "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "ruby-hyperloop": "^0.0.3"
+    "ruby-hyperloop": "^0.0.4"
   },
   "devDependencies": {
-    "css-loader": "^0.28.7",
-    "style-loader": "^0.18.2",
-    "webpack": "^3.5.6"
+    "css-loader": "^0.28.9",
+    "style-loader": "^0.20.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

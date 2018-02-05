@@ -1,19 +1,20 @@
 require 'opal'
 
-task :build do
-  mkdir 'build' unless File.directory?('build')
-  Opal.append_path "app"
-  puts "--> Building application.js"
-  File.open("build/application.js", "w+") do |out|
-   out << Opal::Builder.build("application").to_s
-  end
-  puts "--> Running webpack to build bundle.js"
+file 'build/bundle.js' => 'client.js' do
+  puts '--> Running webpack to build bundle.js'
   sh 'webpack --progress'
   puts '--> all done'
 end
+task :build => 'build/bundle.js'
 
-task :dist do
-  mkdir 'dist' unless File.directory?('dist')
-  puts "--> Running webpack to build distribution app.min.js"
+task :build_app => 'build/bundle.js' do
+  Opal.append_path 'app'
+  puts '--> Building application.js'
+  File.binwrite 'build/application.js', Opal::Builder.build('application').to_s
+end
+
+file 'dist/app.min.js' => ['build/application.js', 'build/bundle.js'] do
+  puts '--> Running webpack to build distribution app.min.js'
   sh 'webpack --config=dist.config.js --progress -p'
 end
+task :dist => 'dist/app.min.js'

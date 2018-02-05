@@ -52,10 +52,17 @@ $ webpack -v
 3.5.6
 ```
 
+Add webpack installed location into `$NODE_PATH`, if you are using OSX or linux, just add global
+node_modules directory into $NODE_PATH in your's $HOME/.bashrc, following is a example:
+
+```sh
+echo 'export NODE_PATH=$NODE_PATH:/home/zw963/utils/node/lib/node_modules' >> ~/.bashrc
+```
+
 Next we will use NPM to install our JavaScript libraries:
 
 ```
-$ npm install react react-dom ruby-hyperloop --save
+$ npm install ruby-hyperloop --save
 ```
 
 After a considerable amount of downloading, you will find you now have a `node_modules` folder which contains all the JS libraries that Webpack will use. This folder is Git ignored. The packages you install are recorded in the package.json file.
@@ -138,9 +145,7 @@ See the `build` task in the `Rakefile`. You will notice that we are compiling `a
 
 ```ruby
 # Rakefile
-File.open("build/application.js", "w+") do |out|
- out << Opal::Builder.build("application").to_s
-end
+File.binwrite 'build/application.js', Opal::Builder.build('application').to_s
 ```
 
 ### Requiring JavaScript libraries
@@ -177,13 +182,13 @@ Note that this step is preformed in our `build` rake task. (`sh 'webpack --progr
 
 ### CSS
 
-CSS will come into your project from two sources: CSS you add in the `app/css` folder and CSS from JavaaScript libraries you add through Webpack.
+CSS will come into your project from two sources: CSS you add in the `app/css` folder and CSS from JavaScript libraries you add through Webpack.
 
 To add a new CSS file:
 
 + Create the file in `app/css`
 + Add it to `app/index.html.erb` (we only need it gere for development)
-+ Require it in `client.js` - this will ensure that Webpack will package it properly for for your distribution build
++ Require it in `client.js` - this will ensure that Webpack will package it properly for your distribution build
 
 ```javascript
 // client.js
@@ -194,30 +199,13 @@ require('./app/css/application.css');
 
 In the previous sections, we have seen how we build our Opal code how Webpack packages the NPM modules. All of these files are brought together in `index.html.erb` which is only used for development. In production we have a different `index.html` as all the JavaScript libs are packaged.
 
-Take a look at `app/index.html.erb`. First we include the CDN versions of React, ReactDOM and JQuery:
+Take a look at `index.html.erb`', it's javascript consists of three parts:
 
-```html
-<!-- app/index.html.erb -->
-<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
-```
+1. CDN versions of javascript, the purpose is to keep the final output as small as possible. [link](/app/index.html.erb#L7-L9)
+2. Javscripts used only for development and HotLoading working. [link](/app/index.html.erb#L12) [link](/app/index.html.erb#L15) [link](/app/index.html.erb#L20)
+3. Javascipts need bundled into final output js for your distribution build. [link](/app/index.html.erb#L17)
 
-> You have several ways of including these files - you could have `require`d them in `client.js` and Webpack would have packaged them or you could simply add a local copy of the JS file. In this case we have used the CDN versions simply to keep the final output as small as possible.
-
-Then we instruct Opal Sprockets to build `opal.js`, `reload.js` and `application.js.rb` when the server starts. Note how these files correspond to `app/opal.js.rb`, `app/reload.js.rb` and `app/application.js.rb`.
-
-`build/bundle.js` is the output file Webpack packaged for us.
-
-```html
-<!-- app/index.html.erb -->
-<%= javascript_include_tag 'opal.js'%>
-<script src="build/bundle.js"></script>
-<%= javascript_include_tag 'reload.js'%>
-<%= javascript_include_tag 'application.js'%>
-```
-
-### OpalHotReloader
+ ### OpalHotReloader
 
 OpalHotReloader has a server component which watches for changes and re-compiles code and a client component which dynamically reloads the JavaScript.
 
