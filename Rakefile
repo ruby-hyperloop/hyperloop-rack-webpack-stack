@@ -1,4 +1,14 @@
 require 'opal'
+require 'hyperloop-config'
+require 'rubygems'
+require 'opal-rails'
+require 'hyper-operation'
+require 'hyper-store'
+require 'hyper-router'
+require 'opal-browser'
+require 'opal-jquery'
+require 'uglifier'
+
 
 file 'build/bundle.js' => 'client.js' do
   puts '--> Running webpack to build bundle.js'

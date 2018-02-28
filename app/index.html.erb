@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1">
 
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <script src="build/bundle.js"></script>
 
     <!-- For Sprockets HotLoading working, in production, we use Opal through the CDN  -->
     <%= javascript_include_tag 'opal.js'%>
 
+    <!-- Hyperloop -->
+    <%= javascript_include_tag 'hyperloop.js'%>
+    <%= javascript_include_tag 'hyperloop-router.js'%>
+
     <!-- For Sprockets HotLoading working in development -->
     <%= javascript_include_tag 'reload.js'%>
 
-    <script src="build/bundle.js"></script>
     <!-- For Sprockets HotLoading working, in production, we use Opal through the CDN  -->
     <!-- The distribution version will bundled bundle.js and application.js into app.min.js -->
     <%= javascript_include_tag 'application.js'%>
